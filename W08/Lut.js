@@ -20,10 +20,11 @@ THREE.Lut = function ( colormap, numberofcolors ) {
 				var min = this.map[ j ][ 0 ];
 				var max = this.map[ j + 1 ][ 0 ];
 
+				var color = new THREE.Color( 0xffffff );
 				var minColor = new THREE.Color( 0xffffff ).setHex( this.map[ j ][ 1 ] );
 				var maxColor = new THREE.Color( 0xffffff ).setHex( this.map[ j + 1 ][ 1 ] );
 
-				var color = minColor.lerp( maxColor, ( i - min ) / ( max - min ) );
+				color = minColor.lerp( maxColor, ( i - min ) / ( max - min ) );
 
 				this.lut.push( color );
 
@@ -157,9 +158,10 @@ THREE.Lut.prototype = {
 
 		this.legend.texture = new THREE.Texture( this.legend.canvas );
 
-		var imageData = this.legend.ctx.getImageData( 0, 0, 1, this.n );
+		imageData = this.legend.ctx.getImageData( 0, 0, 1, this.n );
 
-		var data = imageData.data;
+		data = imageData.data;
+		len = data.length;
 
 		this.map = THREE.ColorMapKeywords[ this.mapname ];
 
@@ -175,11 +177,10 @@ THREE.Lut.prototype = {
 
 					var min = this.map[ j - 1 ][ 0 ];
 					var max = this.map[ j ][ 0 ];
-
+					var color = new THREE.Color( 0xffffff );
 					var minColor = new THREE.Color( 0xffffff ).setHex( this.map[ j - 1 ][ 1 ] );
 					var maxColor = new THREE.Color( 0xffffff ).setHex( this.map[ j ][ 1 ] );
-
-					var color = minColor.lerp( maxColor, ( i - min ) / ( max - min ) );
+					color = minColor.lerp( maxColor, ( i - min ) / ( max - min ) );
 
 					data[ k * 4 ] = Math.round( color.r * 255 );
 					data[ k * 4 + 1 ] = Math.round( color.g * 255 );
@@ -451,16 +452,16 @@ THREE.Lut.prototype = {
 
 				var material = new THREE.LineBasicMaterial( { color: 0x000000, linewidth: 2 } );
 
-				var points = [];
+				var geometry = new THREE.Geometry();
 
 
 				if ( this.legend.layout == 'vertical' ) {
 
 					var linePosition = ( this.legend.position.y - ( this.legend.dimensions.height * 0.5 ) + 0.01 ) + ( this.legend.dimensions.height ) * ( ( value - this.minV ) / ( this.maxV - this.minV ) * 0.99 );
 
-					points.push( new THREE.Vector3( this.legend.position.x + this.legend.dimensions.width * 0.55, linePosition, this.legend.position.z  ) );
+					geometry.vertices.push( new THREE.Vector3( this.legend.position.x + this.legend.dimensions.width * 0.55, linePosition, this.legend.position.z  ) );
 
-					points.push( new THREE.Vector3( this.legend.position.x + this.legend.dimensions.width * 0.7, linePosition, this.legend.position.z  ) );
+					geometry.vertices.push( new THREE.Vector3( this.legend.position.x + this.legend.dimensions.width * 0.7, linePosition, this.legend.position.z  ) );
 
 				}
 
@@ -468,13 +469,11 @@ THREE.Lut.prototype = {
 
 					var linePosition = ( this.legend.position.x - ( this.legend.dimensions.height * 0.5 ) + 0.01 ) + ( this.legend.dimensions.height ) * ( ( value - this.minV ) / ( this.maxV - this.minV ) * 0.99 );
 
-					points.push( new THREE.Vector3( linePosition, this.legend.position.y - this.legend.dimensions.width * 0.55, this.legend.position.z  ) );
+					geometry.vertices.push( new THREE.Vector3( linePosition, this.legend.position.y - this.legend.dimensions.width * 0.55, this.legend.position.z  ) );
 
-					points.push( new THREE.Vector3( linePosition, this.legend.position.y - this.legend.dimensions.width * 0.7, this.legend.position.z  ) );
+					geometry.vertices.push( new THREE.Vector3( linePosition, this.legend.position.y - this.legend.dimensions.width * 0.7, this.legend.position.z  ) );
 
 				}
-
-				var geometry = new THREE.BufferGeometry().setFromPoints( points );
 
 				var line = new THREE.Line( geometry, material );
 
