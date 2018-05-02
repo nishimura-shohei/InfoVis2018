@@ -12,8 +12,8 @@
 		uniform vec3 light_position;
 		vec3 LambertianReflection( vec3 C, vec3 L, vec3 N )
 		{
-			float ka = 0.4;
-			float kd = 0.6;
+			float ka = 0.2;
+			float kd = 0.7;
 			float dd = max( dot( N, L ), 0.0 );
 			float Ia = ka;
 			float Id = kd * dd;
