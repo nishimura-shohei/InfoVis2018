@@ -12,6 +12,10 @@ function main()
     var bounds = Bounds( volume );
     screen.scene.add( bounds );
 
+    var material.color = new THREE.Color("white");
+    
+    screen.scene.add( material );
+    
     var isovalue = 128;
     var surfaces = Isosurfaces( volume, isovalue );
     screen.scene.add( surfaces );
@@ -20,7 +24,7 @@ function main()
         screen.light.position.copy( screen.camera.position );
     });
     
-    material.color = new THREE.Color("green");
+    
 
     window.addEventListener( 'resize', function() {
         screen.resize( [ window.innerWidth, window.innerHeight ] );
