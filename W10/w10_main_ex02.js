@@ -20,7 +20,7 @@ function main()
         screen.light.position.copy( screen.camera.position );
     });
     
-    material.color = new THREE.Color("white");
+    material.color = new THREE.Color("green");
 
     window.addEventListener( 'resize', function() {
         screen.resize( [ window.innerWidth, window.innerHeight ] );
