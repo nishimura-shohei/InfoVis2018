@@ -12,7 +12,7 @@ function main()
     var bounds = Bounds( volume );
     screen.scene.add( bounds );
 
-    var material.color = new THREE.Color("white");
+    var material.color = new THREE.Color();
     
     screen.scene.add( material );
     
