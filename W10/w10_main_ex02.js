@@ -19,6 +19,8 @@ function main()
     document.addEventListener( 'mousemove', function() {
         screen.light.position.copy( screen.camera.position );
     });
+    
+    material.color = new THREE.Color("white");
 
     window.addEventListener( 'resize', function() {
         screen.resize( [ window.innerWidth, window.innerHeight ] );
