@@ -56,17 +56,6 @@ function main()
     scene.add( surfaces );
     var original_position_z = surfaces.position.z;
 
-    //ドーナツ
-    // 芯円半径50、断面円半径10、断面円分割3、芯円分割16
-    var torus = new THREE.Mesh(
-        new THREE.TorusGeometry(10, 10, 3, 16), 
-        new THREE.MeshLambertMaterial( { color: 0x00ff00 } )
-    );
-    torus.position.x += volume.resolution.x - 30;
-    torus.position.y += volume.resolution.y/2 + 30;
-    torus.position.z += volume.resolution.z/2;
-    scene.add( torus );
-    torus.visible = false;
 
     document.addEventListener( 'mousemove', function() {
         light.position.copy( camera.position );
@@ -152,31 +141,6 @@ function main()
             surfaces.visible = false;
         }
     }   
-    robsterEatButton.addEventListener("click", robsterEatButtonPush);
-
-    var robsterPutButton = document.querySelector('button[id="robster_put_button"]');
-    var robsterPutButtonPush = function(){
-        if(surfaces.visible == false){
-            surfaces.visible = true;
-        }
-    }   
-    robsterPutButton.addEventListener("click", robsterPutButtonPush);
-
-    var torusInButton = document.querySelector('button[id="torus_in_button"]');
-    var torusInButtonPush = function(){
-        if(torus.visible == false){
-            torus.visible = true;
-        }
-    }   
-    torusInButton.addEventListener("click", torusInButtonPush);
-
-    var torusOutButton = document.querySelector('button[id="torus_out_button"]');
-    var torusOutButtonPush = function(){
-        if(torus.visible == true){
-            torus.visible = false;
-        }
-    }   
-    torusOutButton.addEventListener("click", torusOutButtonPush);
 
     loop();
 
